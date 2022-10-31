@@ -55,4 +55,22 @@ class Bot {
         curl_exec($ch);
     }
 
+    public function sendVideo($text, $path_to_video) {
+        $ch = curl_init();
+        $ch_post = [
+            CURLOPT_URL => 'https://api.telegram.org/bot' . $this->bot_token . '/sendVideo',
+            CURLOPT_POST => TRUE,
+            CURLOPT_RETURNTRANSFER => TRUE,
+            CURLOPT_TIMEOUT => 10,
+            CURLOPT_POSTFIELDS => [
+                'chat_id' => "-1001453539385",
+                'parse_mode' => 'HTML',
+                'caption' => $text,
+                'video' => $path_to_video
+            ]
+        ];
+        curl_setopt_array($ch, $ch_post);
+        echo curl_exec($ch);
+    }
+
 }

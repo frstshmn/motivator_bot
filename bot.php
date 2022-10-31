@@ -14,19 +14,19 @@ if (!empty($data['text'])) {
         if ( $tiubicks->addTiubick($data['username']) ) {
             $bot->sendMessage("Всьо, бікам стронгер, варріор!");
         } else {
-            $bot->sendMessage("Шось не так", $bot->getToken());
+            $bot->sendMessage("Шось не так");
         }
     } else if (str_contains($data['text'], '/leave')) {
         if ( $tiubicks->removeTiubick($data['username']) ) {
             $bot->sendMessage("Шо, здувся, тюбік? Теряйся, слабак");
         } else {
-            $bot->sendMessage("Шось не так", $bot->getToken());
+            $bot->sendMessage("Шось не так");
         }
     } else if (str_contains($data['text'], '/get_task')) {
         if ($bot->getIsHard() != true) {
             $bot->sendMessage($tiubicks->callSingle($data['username']));
         } else {
-            $bot->sendMessage("Відпочивайте поки", $bot->getToken());
+            $bot->sendMessage("Відпочивайте поки");
         }
     }
 } else {
@@ -44,6 +44,14 @@ if (!empty($data['text'])) {
             } else {
                 $bot->setIsHard(false);
             }
+        } else if ($_GET['action'] == 'resttime') {
+            $string = "<b>ЦІЛИЙ ТИЖДЕНЬ ПАХАЛИ, А ТЕПЕР ДЕНЬ РАСКУМАРА</b>\n\n";
+            $string .= "Вечір п'ятниці, того забивайте на все, відпочивайте, як востаннє\n";
+            $string .= "План на сьогодні: йобнути пивка чи іншого вкусного напойчику, затянути плотну дуделочку, разорвати центр або позаліпати шось дома\n";
+            $string .= "Всім вдалого дня, приємних вихідних, живіть життя!\n\n";
+            $string .= $tiubicks->mentionAll();
+
+            $bot->sendVideo($string, "https://frstshmn.tech/motivator_bot/media/resttime.mp4");
         }
     }
 }
