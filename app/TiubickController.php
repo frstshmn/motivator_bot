@@ -160,5 +160,37 @@ class TiubickController {
             return $string;
         }
     }
+
+    public function totalRank() {
+        $message = "<b>Загальна статистика</b>\n";
+
+        foreach ($this->users as $user) {
+            $message .= $user->username . "\n";
+            $message .= "Присідань: " . ($user->exercises->squat ?? 0) . "\n";
+            $message .= "Відтискань: " . ($user->exercises->pushup ?? 0) . "\n";
+            $message .= "Пресс: " . ($user->exercises->press ?? 0) . "\n";
+            $message .= "Жим на трицепс: " . ($user->exercises->triceps ?? 0) . "\n";
+            $message .= "Планка: " . ($user->exercises->plank ?? 0) . " сек\n\n";
+
+        }
+
+        return $message;
+    }
+
+    public function singleRank($username) {
+        if (isset($this->users[$username])) {
+            $message = "<b>Статистика @". $username ."</b>\n";
+
+            $message .= "Присідань: " . ($this->users[$username]->exercises->squat ?? 0) . "\n";
+            $message .= "Відтискань: " . ($this->users[$username]->exercises->pushup ?? 0) . "\n";
+            $message .= "Пресс: " . ($this->users[$username]->exercises->press ?? 0) . "\n";
+            $message .= "Жим на трицепс: " . ($this->users[$username]->exercises->triceps ?? 0) . "\n";
+            $message .= "Планка: " . ($this->users[$username]->exercises->plank ?? 0) . " сек\n\n";
+
+            return $message;
+        } else {
+            return "Ди звідси, тюбік";
+        }
+    }
     
 }
